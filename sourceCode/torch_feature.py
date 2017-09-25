@@ -40,7 +40,7 @@ print('train')
 
 # dog_crop = h5py.File('./yolo_kuhuang.h5', 'r')
 # dog_crop_img = dog_crop.keys()
-postrain = '/home/deeplearning/wh/baiduImage/train_head/'
+postrain = '/your path/train_head/'
 def readtrain_img(img_file, size = (224, 224), logging = False):
     imgs = []
     for img_path in img_file:
@@ -49,7 +49,7 @@ def readtrain_img(img_file, size = (224, 224), logging = False):
         imgs.append(img)
     return imgs
 
-postest = '/home/deeplearning/wh/baiduImage/test_head/'
+postest = '/your path/test_head/'
 def readtest_img(img_file, size = (224, 224), logging = False):
     imgs = []
     for img_path in img_file:
@@ -160,7 +160,7 @@ else:
 
 # train_val = train_val.iloc[: 100]
 gen = ImageDataGenerator()
-train = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", (224,224), shuffle=False, batch_size=batchsize, class_mode=None)
+train = gen.flow_from_directory("/your path/train", (224,224), shuffle=False, batch_size=batchsize, class_mode=None)
 train_feature = []
 
 for idx in range(0, len(train.filenames),batchsize):
@@ -181,7 +181,7 @@ for idx in range(0, len(train.filenames),batchsize):
         del ff;gc.collect()
 train_feature = np.array(train_feature)
 '''
-test = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", (224,224), shuffle=False, batch_size=8, class_mode=None)
+test = gen.flow_from_directory("/your path/test", (224,224), shuffle=False, batch_size=8, class_mode=None)
 
 test_feature = []
 for idx in range(0, len(test.filenames),batchsize):
@@ -206,11 +206,11 @@ test_feature = np.array(test_feature)
 train_feature = np.concatenate(train_feature, 0).reshape(-1, featurenum)
 #test_feature = np.concatenate(test_feature, 0).reshape(-1, featurenum)
 
-with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/train_head/224_'+network, "w") as f:
+with h5py.File('/your path/wh_code/train_head/224_'+network, "w") as f:
     f.create_dataset("train", data=train_feature)
     #f.create_dataset("test", data=test_feature)
     #f.create_dataset("label", data=train.classes)
 '''
-with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/test_head/224_'+network, "w") as f:
+with h5py.File('/your path/wh_code/test_head/224_'+network, "w") as f:
     f.create_dataset("test", data=test_feature)
 '''

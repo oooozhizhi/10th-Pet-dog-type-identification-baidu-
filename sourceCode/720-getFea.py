@@ -14,7 +14,7 @@ from keras import backend as K
 import numpy as np
 import cv2
 import os
-fileDir = '/home/deeplearning/wh/baiduImage/'
+fileDir = '/your path/'
 
 def write_gap_train(MODEL, image_size, lambda_func=None):
     width = image_size[0]
@@ -29,26 +29,26 @@ def write_gap_train(MODEL, image_size, lambda_func=None):
 
     gen = ImageDataGenerator()
    
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
+    train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
     train = model.predict_generator(train_generator,9113,verbose=True)#72897
-    with h5py.File(fileDir+"wh_code/train_cut/512_4p-%s.h5"%MODEL.__name__) as h:
+    with h5py.File(fileDir+"your path/512_4p-%s.h5"%MODEL.__name__) as h:
         h.create_dataset("train", data=train)
     '''
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
+    train_generator = gen.flow_from_directory("/your path/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
     train = model.predict_generator(train_generator,10710,verbose=True)#85675
-    with h5py.File(fileDir+"wh_code/train_cut_hun/512_3p-%s.h5"%MODEL.__name__) as h:
+    with h5py.File(fileDir+your path/512_3p-%s.h5"%MODEL.__name__) as h:
         h.create_dataset("train", data=train)
     '''
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37175
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55228
+    #train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#37175
+    #train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#55228
     
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37178
-    ##train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    #train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#37178
+    ##train_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#55298
      
-    #test_generator1 = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
-    #test_generator2 = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
+    #test_generator1 = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
+    #test_generator2 = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
      
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     #train = model.predict_generator(train_generator,4647,verbose=True)#37175
@@ -96,8 +96,8 @@ def write_train(MODEL, image_size, lambda_func=None):
     batch_X = np.zeros((batchsize,)+(width,height,3),dtype=K.floatx())
     train_feature=[]
     gen = ImageDataGenerator()
-    train = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
-    postrain = '/home/deeplearning/wh/baiduImage/train_crop_head/'
+    train = gen.flow_from_directory("/your path/train", image_size, shuffle=False, batch_size=8)#18686
+    postrain = '/your path/'
     for idx in range(0, len(train.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(train.filenames):
@@ -114,8 +114,8 @@ def write_train(MODEL, image_size, lambda_func=None):
     train_feature = np.concatenate(train_feature, 0)
     
     test_feature=[]
-    test = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8)#18686
-    postest = '/home/deeplearning/wh/baiduImage/test_crop_head/done/'
+    test = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8)#18686
+    postest = '/your path/'
     for idx in range(0, len(test.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(test.filenames):
@@ -133,7 +133,7 @@ def write_train(MODEL, image_size, lambda_func=None):
 
     print(train_feature.shape)
     print(test_feature.shape)
-    with h5py.File(fileDir+"wh_code/cut/299_1p_tou-xcep.h5") as h:
+    with h5py.File(fileDir+"your path/299_1p_tou-xcep.h5") as h:
         h.create_dataset("train", data=train_feature)
         h.create_dataset("test", data=test_feature)
 
@@ -146,41 +146,41 @@ def incepV4():
     model = Model(base_model.input,x)
     gen = ImageDataGenerator(preprocessing_function=inceptionV4.preprocess_input)
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
-    #val_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
+    #train_generator = gen.flow_from_directory("/your path/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
+    #val_generator = gen.flow_from_directory("/your path", image_size, shuffle=False, batch_size=8)#3117
+    #train_generator = gen.flow_from_directory("/your path/train", image_size, shuffle=False, batch_size=8)#18686
+    train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
     train = model.predict_generator(train_generator,9113,verbose=True)#72897
-    with h5py.File(fileDir+"wh_code/train_cut/299_4p-incepv4.h5") as h:
+    with h5py.File(fileDir+"your path/299_4p-incepv4.h5") as h:
         h.create_dataset("train", data=train)
 
     '''
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p_hun", image_size, shuffle=False, batch_size=8)#85828
+    train_generator = gen.flow_from_directory("/your path/train3p_hun", image_size, shuffle=False, batch_size=8)#85828
     train = model.predict_generator(train_generator,10729,verbose=True)#85828    
-    with h5py.File(fileDir+"wh_code/train_nocut_hun/299_3p-incepv4.h5") as h:
+    with h5py.File(fileDir+"your path/299_3p-incepv4.h5") as h:
         h.create_dataset("train", data=train)
 
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
+    train_generator = gen.flow_from_directory("/your path/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
     train = model.predict_generator(train_generator,10710,verbose=True)#85675
-    with h5py.File(fileDir+"wh_code/train_cut_hun/299_3p-incepV4.h5") as h:
+    with h5py.File(fileDir+"your path/299_3p-incepV4.h5") as h:
         h.create_dataset("train", data=train)
     '''
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train4p", image_size, shuffle=False, batch_size=8)#73049
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37175
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55228
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_hun", image_size, shuffle=False, batch_size=8)#29259
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    #test_generator = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
+    #test_generator = gen.flow_from_directory("/your path/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #train_generator = gen.flow_from_directory("/your path/train4p", image_size, shuffle=False, batch_size=8)#73049
+    #train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
+    #train_generator = gen.flow_from_directory("/your path/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37175
+    #train_generator = gen.flow_from_directory("/your path/train3p", image_size, shuffle=False, batch_size=8)#55228
+    #train_generator = gen.flow_from_directory("/your path/train_hun", image_size, shuffle=False, batch_size=8)#29259
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     
-    #test_generator2 = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
+    #test_generator2 = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#29282
     #train = model.predict_generator(train_generator,4647,verbose=True)#37175
     #train = model.predict_generator(train_generator,6904,verbose=True)#55228
     #train = model.predict_generator(train_generator,3658,verbose=True)#29259
@@ -223,8 +223,8 @@ def incepV4_2():
     batch_X = np.zeros((batchsize,)+(299,299,3),dtype=K.floatx())
     train_feature=[]
     gen = ImageDataGenerator()
-    train = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_hun", image_size, shuffle=False, batch_size=8)#18686
-    postrain = '/home/deeplearning/wh/baiduImage/train_hun_head/'
+    train = gen.flow_from_directory("/your path/train_hun", image_size, shuffle=False, batch_size=8)#18686
+    postrain = '/your path/train_hun_head/'
     for idx in range(0, len(train.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(train.filenames):
@@ -241,8 +241,8 @@ def incepV4_2():
     train_feature = np.concatenate(train_feature, 0)
     
     test_feature=[]
-    test = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8)#18686
-    postest = '/home/deeplearning/wh/baiduImage/test_head/'
+    test = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8)#18686
+    postest = '/your path/test_head/'
     for idx in range(0, len(test.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(test.filenames):
@@ -260,30 +260,30 @@ def incepV4_2():
 
     print(train_feature.shape)
     print(test_feature.shape)
-    with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/train_head_hun/299-incepV4.h5', "w") as f:
+    with h5py.File('/your path/wh_code/train_head_hun/299-incepV4.h5', "w") as f:
          f.create_dataset("train", data=train_feature)
     #f.create_dataset("test", data=test_feature)
     #f.create_dataset("label", data=train.classes)
-    with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/test_head/299-incepV4.h5', "w") as f:
+    with h5py.File('/your path/wh_code/test_head/299-incepV4.h5', "w") as f:
          f.create_dataset("test", data=test_feature)
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
-    #val_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
+    #val_generator = gen.flow_from_directory("/your path/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
+    #train_generator = gen.flow_from_directory("/your path/train", image_size, shuffle=False, batch_size=8)#18686
     
     '''
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train4p", image_size, shuffle=False, batch_size=8)#73049
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37201
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55273
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    #test_generator = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    test_generator = gen.flow_from_directory("/your path/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #train_generator = gen.flow_from_directory("/your path/train4p", image_size, shuffle=False, batch_size=8)#73049
+    #train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
+    train_generator = gen.flow_from_directory("/your path/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37201
+    #train_generator = gen.flow_from_directory("/your path/train3p", image_size, shuffle=False, batch_size=8)#55273
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     #train = model.predict_generator(train_generator,4649,verbose=True)#37189
     #train = model.predict_generator(train_generator,6913,verbose=True)#55298
@@ -321,8 +321,8 @@ def xcep_2():
     batch_X = np.zeros((batchsize,)+(512,512,3),dtype=K.floatx())
     train_feature=[]
     gen = ImageDataGenerator()
-    train = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
-    postrain = '/home/deeplearning/wh/baiduImage/train_head/'
+    train = gen.flow_from_directory("/your path/train", image_size, shuffle=False, batch_size=8)#18686
+    postrain = '/your path/train_head/'
     for idx in range(0, len(train.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(train.filenames):
@@ -339,8 +339,8 @@ def xcep_2():
     train_feature = np.concatenate(train_feature, 0)
     '''
     test_feature=[]
-    test = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8)#18686
-    postest = '/home/deeplearning/wh/baiduImage/test_head/'
+    test = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8)#18686
+    postest = '/your path/test_head/'
     for idx in range(0, len(test.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(test.filenames):
@@ -360,7 +360,7 @@ def xcep_2():
     print(test_feature.shape)
 
     '''
-    with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/train_head/512-xcep.h5', "w") as f:
+    with h5py.File('/your path/wh_code/train_head/512-xcep.h5', "w") as f:
          f.create_dataset("train", data=train_feature)
     #f.create_dataset("test", data=test_feature)
     #f.create_dataset("label", data=train.classes)
@@ -368,7 +368,7 @@ def xcep_2():
 
 
 def dense161():
-    weights_path = '/home/deeplearning/wh/baiduImage/wh_code/densenet/densenet161_weights_tf.h5'
+    weights_path = '/your path/wh_code/densenet/densenet161_weights_tf.h5'
     image_size=(224,224)
     base_model = densenet161.DenseNet(reduction=0.5, classes=1000, weights_path=weights_path)
     #base_model = densenet161.densenet161_model(img_rows=224, img_cols=224, color_type=3)
@@ -376,24 +376,24 @@ def dense161():
     gen = ImageDataGenerator(preprocessing_function=densenet161.preprocess_input)
     print(base_model.output)
     #gen = ImageDataGenerator()
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
-    #val_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
+    #val_generator = gen.flow_from_directory("/your path/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
+    #train_generator = gen.flow_from_directory("/your path/train", image_size, shuffle=False, batch_size=8)#18686
     
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
-    test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train4p", image_size, shuffle=False, batch_size=8)#73049
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37201
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55273
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    test_generator = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #test_generator = gen.flow_from_directory("/your path/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #train_generator = gen.flow_from_directory("/your path/train4p", image_size, shuffle=False, batch_size=8)#73049
+    #train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
+    #train_generator = gen.flow_from_directory("/your path/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37201
+    train_generator = gen.flow_from_directory("/your path/train3p", image_size, shuffle=False, batch_size=8)#55273
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     #train = model.predict_generator(train_generator,4649,verbose=True)#37189
     #train = model.predict_generator(train_generator,6913,verbose=True)#55298
@@ -420,7 +420,7 @@ def dense161():
 
 
 def dense121():
-    weights_path = '/home/deeplearning/wh/baiduImage/wh_code/densenet/densenet121_weights_tf.h5'
+    weights_path = '/your path/wh_code/densenet/densenet121_weights_tf.h5'
     image_size=(224,224)
     base_model = densenet121.DenseNet(reduction=0.5, classes=1000, weights_path=weights_path)
     #base_model = densenet161.densenet161_model(img_rows=224, img_cols=224, color_type=3)
@@ -428,24 +428,24 @@ def dense121():
     gen = ImageDataGenerator(preprocessing_function=densenet121.preprocess_input)
     print(base_model.output)
     #gen = ImageDataGenerator()
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
-    #val_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
+    #val_generator = gen.flow_from_directory("/your path/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
     
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train4p", image_size, shuffle=False, batch_size=8)#73049
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37201
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55273
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    #test_generator = gen.flow_from_directory("/your path/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    test_generator = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #train_generator = gen.flow_from_directory("/your path/train4p", image_size, shuffle=False, batch_size=8)#73049
+    #train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
+    #train_generator = gen.flow_from_directory("/your path/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37201
+    train_generator = gen.flow_from_directory("/your path/train3p", image_size, shuffle=False, batch_size=8)#55273
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     #train = model.predict_generator(train_generator,4649,verbose=True)#37189
     #train = model.predict_generator(train_generator,6913,verbose=True)#55298
@@ -471,7 +471,7 @@ def dense121():
 
 
 def dense169():
-    weights_path = '/home/deeplearning/wh/baiduImage/wh_code/densenet/densenet169_weights_tf.h5'
+    weights_path = '/your path/wh_code/densenet/densenet169_weights_tf.h5'
     image_size=(224,224)
     base_model = densenet169.DenseNet(reduction=0.5, classes=1000, weights_path=weights_path)
     #base_model = densenet161.densenet161_model(img_rows=224, img_cols=224, color_type=3)
@@ -479,21 +479,21 @@ def dense169():
     gen = ImageDataGenerator(preprocessing_function=densenet169.preprocess_input)
     print(base_model.output)
     #gen = ImageDataGenerator()
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
     
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut", image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
-    #test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train4p", image_size, shuffle=False, batch_size=8)#73049
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37201
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p", image_size, shuffle=False, batch_size=8)#55273
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut", image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train_cut3p", image_size, shuffle=False, batch_size=8)#55298
+    #test_generator = gen.flow_from_directory("/your path/test_cut", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    test_generator = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8, class_mode=None)#10593
+    #train_generator = gen.flow_from_directory("/your path/train4p", image_size, shuffle=False, batch_size=8)#73049
+    #train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72981
+    #train_generator = gen.flow_from_directory("/your path/train_cut5p", image_size, shuffle=False, batch_size=8)#90253
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37201
+    train_generator = gen.flow_from_directory("/your path/train3p", image_size, shuffle=False, batch_size=8)#55273
     #train = model.predict_generator(train_generator,2336,verbose=True)#18686
     #train = model.predict_generator(train_generator,4649,verbose=True)#37189
     #train = model.predict_generator(train_generator,6913,verbose=True)#55298
@@ -526,29 +526,29 @@ def res152():
     print(model.input)
     gen = ImageDataGenerator()
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
+    #train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37189
 
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
-    #val_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train",image_size, shuffle=False, batch_size=8)#18686
-    #train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train2p", image_size, shuffle=False, batch_size=8)#37175
+    #train_generator = gen.flow_from_directory("/your path/traindata2_pre", image_size, shuffle=False, batch_size=8)#20227
+    #val_generator = gen.flow_from_directory("/your path/val_cutpre", image_size, shuffle=False, batch_size=8)#3117
+    #train_generator = gen.flow_from_directory("/your path/train",image_size, shuffle=False, batch_size=8)#18686
+    #train_generator = gen.flow_from_directory("/your path/train2p", image_size, shuffle=False, batch_size=8)#37175
     '''
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut2p", image_size, shuffle=False, batch_size=8)#37178
+    train_generator = gen.flow_from_directory("/your path/train_cut2p", image_size, shuffle=False, batch_size=8)#37178
     train = model.predict_generator(train_generator,4648,verbose=True)#37178
     with h5py.File(fileDir+"wh_code/train_cut/299_2p-res152.h5") as h:
         h.create_dataset("train", data=train)
     '''
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
+    train_generator = gen.flow_from_directory("/your path/train_cut4p", image_size, shuffle=False, batch_size=8)#72897
     train = model.predict_generator(train_generator,9113,verbose=True)#72897
     with h5py.File(fileDir+"wh_code/train_cut/448_4p-res152.h5") as h:
         h.create_dataset("train", data=train)
     '''
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train3p_hun", image_size, shuffle=False, batch_size=8)#85828
+    train_generator = gen.flow_from_directory("/your path/train3p_hun", image_size, shuffle=False, batch_size=8)#85828
     train = model.predict_generator(train_generator,10729,verbose=True)#85828
     with h5py.File(fileDir+"wh_code/train_nocut_hun/448_3p-res152.h5") as h:
         h.create_dataset("train", data=train)
 
-    train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
+    train_generator = gen.flow_from_directory("/your path/train_cut3p_hun", image_size, shuffle=False, batch_size=8)#85675
     train = model.predict_generator(train_generator,10710,verbose=True)#85675
     with h5py.File(fileDir+"wh_code/train_cut_hun/448_3p-res152.h5") as h:
         h.create_dataset("train", data=train)
@@ -566,8 +566,8 @@ def res152_2():
     batch_X = np.zeros((batchsize,)+(448,448,3),dtype=K.floatx())
     train_feature=[]
     gen = ImageDataGenerator()
-    train = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train_hun", image_size, shuffle=False, batch_size=8)#18686
-    postrain = '/home/deeplearning/wh/baiduImage/train_hun_head/'
+    train = gen.flow_from_directory("/your path/train_hun", image_size, shuffle=False, batch_size=8)#18686
+    postrain = '/your path/train_hun_head/'
     for idx in range(0, len(train.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(train.filenames):
@@ -584,8 +584,8 @@ def res152_2():
     train_feature = np.concatenate(train_feature, 0)
     
     test_feature=[]
-    test = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", image_size, shuffle=False, batch_size=8)#18686
-    postest = '/home/deeplearning/wh/baiduImage/test_head/'
+    test = gen.flow_from_directory("/your path/test", image_size, shuffle=False, batch_size=8)#18686
+    postest = '/your path/test_head/'
     for idx in range(0, len(test.filenames),batchsize):
         print(idx)
         if idx + batchsize<len(test.filenames):
@@ -603,11 +603,11 @@ def res152_2():
 
     print(train_feature.shape)
     print(test_feature.shape)
-    with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/train_head_hun/448-res152.h5', "w") as f:
+    with h5py.File('/your path/wh_code/train_head_hun/448-res152.h5', "w") as f:
          f.create_dataset("train", data=train_feature)
     #f.create_dataset("test", data=test_feature)
     #f.create_dataset("label", data=train.classes)
-    with h5py.File('/home/deeplearning/wh/baiduImage/wh_code/test_head/448-res152.h5', "w") as f:
+    with h5py.File('/your path/wh_code/test_head/448-res152.h5', "w") as f:
          f.create_dataset("test", data=test_feature)
 
 def main():

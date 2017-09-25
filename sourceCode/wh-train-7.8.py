@@ -10,7 +10,7 @@ np.random.seed(2017)
 
 X_train = []
 X_test = []
-for filename in [ "/home/deeplearning/wh/baiduImage/wh_code/gap_Xception.h5"]:
+for filename in [ "/your path/gap_Xception.h5"]:
     with h5py.File(filename, 'r') as h:
         X_train.append(np.array(h['train']))
         y_train = np.array(h['label'])
@@ -37,9 +37,9 @@ for i in range(10593):
 
 
 gen = ImageDataGenerator()
-test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", (224, 224), shuffle=False, batch_size=16, class_mode=None)
+test_generator = gen.flow_from_directory("/your path/test", (224, 224), shuffle=False, batch_size=16, class_mode=None)
 
-train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/traindata", (224, 224), shuffle=False, batch_size=16)
+train_generator = gen.flow_from_directory("/your path/traindata", (224, 224), shuffle=False, batch_size=16)
 a=train_generator.class_indices
 map={}
 for i in a:
@@ -52,5 +52,5 @@ for i, fname in enumerate(test_generator.filenames):
 
 df=pd.DataFrame(re)
 
-df.to_csv('/home/deeplearning/wh/baiduImage/pred.csv', index=None)
+df.to_csv('/your path/pred.csv', index=None)
 '''

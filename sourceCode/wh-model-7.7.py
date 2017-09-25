@@ -7,7 +7,7 @@ import h5py
 
 # we don't have test data
 
-fileDir = '/home/deeplearning/wh/baiduImage/'
+fileDir = '/your path/'
 def write_gap(MODEL, image_size, lambda_func=None):
     width = image_size[0]
     height = image_size[1]
@@ -26,7 +26,7 @@ def write_gap(MODEL, image_size, lambda_func=None):
     train = model.predict_generator(train_generator, 254,verbose=True)
     print(train .shape)
     
-    with h5py.File(fileDir+"wh_code/2gap_%s.h5"%MODEL.__name__) as h:
+    with h5py.File(fileDir+"your path/2gap_%s.h5"%MODEL.__name__) as h:
         h.create_dataset("train", data=train)
         h.create_dataset("label", data=train_generator.classes)
 def main():  

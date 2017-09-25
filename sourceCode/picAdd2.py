@@ -17,17 +17,17 @@ datagen = ImageDataGenerator(rotation_range=40,
 
 
 print("2p")
-for dir in os.listdir(r"/home/deeplearning/wh/baiduImage/train_hun"):
+for dir in os.listdir(r"/your path/train_hun"):
 	print(dir)
-	for filename in os.listdir("/home/deeplearning/wh/baiduImage/train_hun/"+dir):
-	    if os.path.exists("/home/deeplearning/wh/baiduImage/train2p_hun/"+dir)==False:
-	         os.mkdir("/home/deeplearning/wh/baiduImage/train2p_hun/"+dir)
-	    shutil.copy("/home/deeplearning/wh/baiduImage/train_hun/"+dir+"/"+filename,"/home/deeplearning/wh/baiduImage/train2p_hun/"+dir+"/"+filename)
-	    img = load_img("/home/deeplearning/wh/baiduImage/train2p_hun/"+dir+"/"+filename)
+	for filename in os.listdir("/your path/train_hun/"+dir):
+	    if os.path.exists("/your path/train2p_hun/"+dir)==False:
+	         os.mkdir("/your path/train2p_hun/"+dir)
+	    shutil.copy("/your path/train_hun/"+dir+"/"+filename,"/your path/train2p_hun/"+dir+"/"+filename)
+	    img = load_img("/your path/train2p_hun/"+dir+"/"+filename)
 	    x = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
 	    x = x.reshape((1,) + x.shape)  
 	    i=0
-	    for batch in datagen.flow(x, batch_size=1,save_to_dir="/home/deeplearning/wh/baiduImage/train2p_hun/"+dir+"/", save_prefix='dog', save_format='jpg'):
+	    for batch in datagen.flow(x, batch_size=1,save_to_dir="/your path/train2p_hun/"+dir+"/", save_prefix='dog', save_format='jpg'):
 	        i += 1
 	        if i > 0:
 	            break  

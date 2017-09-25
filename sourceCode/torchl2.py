@@ -75,7 +75,7 @@ for ffile in feature_file:
 '''
 #train_feat1, test_feat1 = [], []
 train_feat,test_feat=[],[]
-for filename in ["/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p2_densenet169"]:
+for filename in ["/your path/nocut/224torch1p2_densenet169"]:
     with h5py.File(filename, 'r') as h:
         test_feat.append(np.array(h['test']))
         train_feat.append(np.array(h['train']))
@@ -83,13 +83,13 @@ for filename in ["/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p2_den
 
 
 '''
-for filename in ["/home/deeplearning/wh/baiduImage/wh_code/nocut/224_1p-dense161.h5"]:
+for filename in ["/your path/nocut/224_1p-dense161.h5"]:
     with h5py.File(filename, 'r') as h:
         #test_feat.append(np.array(h['test']))
         #train_feat.append(np.array(h['train']))
         trainlabel = np.array(h['label'])
 
-for filename in ["/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p_densenet169"]:
+for filename in ["/your path/nocut/224torch1p_densenet169"]:
     with h5py.File(filename, 'r') as h:
         test_feat1.append(np.array(h['test_feature']))
         train_feat1.append(np.array(h['train_feature']))
@@ -110,7 +110,7 @@ for i in range(10,13230,10):
 
 test_feat = np.concatenate((test_feat,test_feat1[0][13230:13239]), 0)
 
-with h5py.File("/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p2_densenet169") as h:
+with h5py.File("/your path/nocut/224torch1p2_densenet169") as h:
         h.create_dataset("train", data=train_feat)
         h.create_dataset("test", data=test_feat)
         h.create_dataset("label", data=trainlabel)
@@ -147,7 +147,7 @@ def adjust_learning_rate(optimizer, epoch):
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
-#train = pd.read_csv('/home/deeplearning/wh/baiduImage/wh_code/datatrain.txt', header = None, sep = ' ', names = ['img', 'label', 'url'])
+#train = pd.read_csv('/your path/datatrain.txt', header = None, sep = ' ', names = ['img', 'label', 'url'])
 #lbl = LabelEncoder()
 #train['label'] = lbl.fit_transform(train['label'].values)
 skf = StratifiedKFold(n_splits = 6)

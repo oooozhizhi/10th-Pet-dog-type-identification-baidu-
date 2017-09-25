@@ -19,42 +19,42 @@ np.random.seed(2017)
 X_train = []
 X_test = []
 '''
-"/home/deeplearning/wh/baiduImage/0714_512-512_deng_gap_InceptionV3.h5",\
-"/home/deeplearning/wh/baiduImage/0714_512-512_deng_gap_Xception.h5",\
+"/your path/0714_512-512_deng_gap_InceptionV3.h5",\
+"/your path/0714_512-512_deng_gap_Xception.h5",\
 
-"/home/deeplearning/wh/baiduImage/0715_512-512_crop_gap_InceptionV3.h5",\
-"/home/deeplearning/wh/baiduImage/0715_512-512_crop_gap_Xception.h5",\
+"/your path/0715_512-512_crop_gap_InceptionV3.h5",\
+"/your path/0715_512-512_crop_gap_Xception.h5",\
 
-"/home/deeplearning/wh/baiduImage/0718_512-512_crop(zo_sh)_gap_Xception.h5",\
-"/home/deeplearning/wh/baiduImage/0718_512-512_crop(zo_sh)_gap_InceptionV3.h5"
+"/your path/0718_512-512_crop(zo_sh)_gap_Xception.h5",\
+"/your path/0718_512-512_crop(zo_sh)_gap_InceptionV3.h5"
 
-"/home/deeplearning/wh/baiduImage/0720_512_(non-Random_batch8)_train_InceptionV3.h5",\
-				"/home/deeplearning/wh/baiduImage/0720_512_(non-Random_batch8)_train_Xception.h5",\
+"/your path/0720_512_(non-Random_batch8)_train_InceptionV3.h5",\
+				"/your path/0720_512_(non-Random_batch8)_train_Xception.h5",\
 '''
 gen = ImageDataGenerator()
-train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", (512,512), shuffle=False, batch_size=8)
+train_generator = gen.flow_from_directory("your path", (512,512), shuffle=False, batch_size=8)
 y_train=train_generator.classes
 
-for filename in ["/home/deeplearning/wh/baiduImage/wh_code/nocut/448-res2.h5"]:
+for filename in ["/your path/448-res2.h5"]:
 	with h5py.File(filename, 'r') as h:
 		X_train.append(np.array(h['train']))
 		X_test.append(np.array(h['test']))
 		y_train = np.array(h['label'])
 
 for filename in [
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p_resnet101",
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/448-res2.h5",
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p_densenet161",
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/224torch1p_densenet201",				
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/299-incepV4.h5",
-				"/home/deeplearning/wh/baiduImage/wh_code/nocut/512-Xception.h5"]:
+				"/your path/224torch1p_resnet101",
+				"/your path/448-res2.h5",
+				"/your path/224torch1p_densenet161",
+				"/your path/224torch1p_densenet201",				
+				"/your path/299-incepV4.h5",
+				"/your path/512-Xception.h5"]:
 	with h5py.File(filename, 'r') as h:
 		X_train.append(np.array(h['train']))
 		X_test.append(np.array(h['test']))
 		#y_train = np.array(h['label'])
 '''
-for filename in ["/home/deeplearning/wh/baiduImage/0719_1024_non-crop(batch8)_test_InceptionV3.h5",\
-"/home/deeplearning/wh/baiduImage/0719_1024_non-crop(batch8)_test_Xception.h5"]:
+for filename in ["/your path/0719_1024_non-crop(batch8)_test_InceptionV3.h5",\
+"/your path/0719_1024_non-crop(batch8)_test_Xception.h5"]:
 	with h5py.File(filename, 'r') as h:
 		#X_train.append(np.array(h['train']))
 		X_test.append(np.array(h['test']))
@@ -72,21 +72,7 @@ x = Dense(512,activation='relu')(input_tensor)
 x = Dropout(0.5)(x)
 x = Dense(100,activation='softmax')(x)
 model = Model(input_tensor,x)
-"""
-input_tensor = Input(X_train.shape[1:])
-x = Dense(1024,activation='relu',init='normal')(input_tensor)
-x = Dropout(0.5)(x)
-x = Dense(512,activation='relu',init='normal')(x)
-x = Dropout(0.5)(x)
-x = Dense(100,init='normal',activation='softmax')(x)
-model = Model(input_tensor,x)
-"""
-"""
-x = Dense(256,activation='relu')(input_tensor)
-x = Dropout(0.5)(x)
-x = Dense(100, activation='softmax')(x)
-model = Model(input_tensor, x)
-"""
+
 
 
 model.compile(optimizer='adadelta',loss='categorical_crossentropy',metrics=['accuracy'])
@@ -119,9 +105,9 @@ K.clear_session()
 
 
 gen = ImageDataGenerator()
-test_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/test", (512,512), shuffle=False, batch_size=8, class_mode=None)
+test_generator = gen.flow_from_directory("/your path/test", (512,512), shuffle=False, batch_size=8, class_mode=None)
 
-train_generator = gen.flow_from_directory("/home/deeplearning/wh/baiduImage/train", (512,512), shuffle=False, batch_size=8)
+train_generator = gen.flow_from_directory("/your path/train", (512,512), shuffle=False, batch_size=8)
 a=train_generator.class_indices
 map={}
 for i in a:
@@ -134,5 +120,5 @@ for i, fname in enumerate(test_generator.filenames):
 
 df=pd.DataFrame(re)
 
-df.to_csv('/home/deeplearning/wh/baiduImage/wh_code/nocut_res152.csv', index=None)
+df.to_csv('/your path/nocut_res152.csv', index=None)
 
